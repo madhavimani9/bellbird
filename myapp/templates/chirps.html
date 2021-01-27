@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+{% block content %}
+<body>
+<h1>Chirps</h1>
+<h2>Chronological Order</h2>
+{% if chirp_list %}
+    <ul>
+    {% for chirp in chirp_list reversed %}
+        <li>{{ chirp.id}} :: {{chirp.text }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>
+        No chirps are available.
+    </p>
+{% endif %}
+<h2>Uppercase</h2>
+{% if chirp_list %}
+    <ul>
+    {% for chirp in chirp_list %}
+        <li>{{ chirp.id}} :: {{chirp.text|upper }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>
+        No chirps are available.
+    </p>
+{% endif %}
+
+<h2>Upvote</h2>
+{% if chirp_list %}
+    <ul>
+    {% for chirp in chirp_list %}
+        <li>{{ chirp.id}} :: {{chirp.text }}
+        	<form action="" method="POST">
+				{% csrf_token %}
+				<input type="submit" value=Upvote> 
+				<input type="hidden" id="id" name = "id" value="{{chirp.id}}">
+			</form>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>
+        No chirps are available.
+    </p>
+{% endif %}
+
+<form action="" method="POST">
+{% csrf_token %}
+Chirp Text: <input type="text" name="chirp_text"/><br/>
+<input type="submit" value="Post"/>
+</form>
+
+</body>
+{% endblock %}
+</html>
